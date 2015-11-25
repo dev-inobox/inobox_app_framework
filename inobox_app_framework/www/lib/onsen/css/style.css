@@ -1,0 +1,20 @@
+.logo {
+  margin-top: 6px;
+}
+
+.itens {
+  border: 2px solid;
+  height: 200px !important;
+}
+
+.vermelho {
+  background-color: #FB464D;
+}
+
+.amarelo {
+  background-color: #EAB74E;
+}
+
+.item-title {
+  border: 1px solid;
+}
