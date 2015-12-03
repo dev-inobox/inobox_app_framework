@@ -1,0 +1,7 @@
+#ionic files
+node_modules/
+platforms/
+plugins/
+
+.project
+.vs
