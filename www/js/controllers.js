@@ -46,42 +46,40 @@ angular.module('starter.controllers', [])
 	};
 })
 
+.controller('ListsCtrl', function($scope) {
+
+	$scope.itemsMenu = [{
+		title : 'Veículos', id : 1 }, {
+		title : 'Restaurantes', id : 2
+	}];
+})
+
 .controller('ListCtrl', function($scope, $stateParams) {
 	
 	$scope.list = {
 		title: "Veículos",
 		data: [{
-			"title": "Reggae",
+			"title": "Ford",
 			"id": 1
 		}, {
-			"title": "Chill",
+			"title": "Fiat",
 			"id": 2
 		}]
 	};
 
 })
 
-.controller('PlaylistsCtrl', function($scope) {
-	$scope.playlists = [{
-		title : 'Reggae',
-		id : 1
-	}, {
-		title : 'Chill',
-		id : 2
-	}, {
-		title : 'Dubstep',
-		id : 3
-	}, {
-		title : 'Indie',
-		id : 4
-	}, {
-		title : 'Rap',
-		id : 5
-	}, {
-		title : 'Cowbell',
-		id : 6
-	}];
-})
+.controller('DetailsCtrl', function($scope, $stateParams) {
+	
+	$scope.details = {
+		title: "Ford",
+		data: [{
+			"key": "Modelo",
+			"value": "Ka"
+		}, {
+			"key": "Ano",
+			"value": 2015
+		}]
+	};
 
-.controller('PlaylistCtrl', function($scope, $stateParams) {
 });

@@ -31,12 +31,32 @@ angular.module('starter', ['ionic', 'starter.controllers']).run(function($ionicP
 		controller : 'AppCtrl'
 	})
 	
+	.state('app.lists', {
+		url : '/list',
+		views : {
+			'menuContent' : {
+				templateUrl : 'templates/lists.html',
+				controller 	: 'ListsCtrl'
+			}
+		}
+	})
+	
 	.state('app.list', {
 		url : '/list/:itemId',
 		views : {
 			'menuContent' : {
 				templateUrl : 'templates/list.html',
 				controller 	: 'ListCtrl'
+			}
+		}
+	})
+	
+	.state('app.details', {
+		url : '/details/:itemId',
+		views : {
+			'menuContent' : {
+				templateUrl : 'templates/details.html',
+				controller 	: 'DetailsCtrl'
 			}
 		}
 	})
@@ -80,5 +100,5 @@ angular.module('starter', ['ionic', 'starter.controllers']).run(function($ionicP
 	});
 	
 	// if none of the above states are matched, use this as the fallback
-	$urlRouterProvider.otherwise('/app/playlists');
+	$urlRouterProvider.otherwise('/app/list');
 });

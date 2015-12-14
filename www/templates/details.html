@@ -1,0 +1,9 @@
+<ion-view view-title="{{details.title}}">
+	<ion-content>
+		<ion-list>
+			<ion-item ng-repeat="detail in details.data">
+				{{detail.key}}: {{detail.value}}
+			</ion-item>
+		</ion-list>
+	</ion-content>
+</ion-view>
