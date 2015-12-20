@@ -1,54 +1,45 @@
-angular.module('starter.controllers', [])
+angular.module('app.controllers', ['app.services'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout) {})
 
-	// With the new view caching in Ionic, Controllers are only called
-	// when they are recreated or on app start, instead of every page change.
-	// To listen for when this page is active (for example, to refresh data),
-	// listen for the $ionicView.enter event:
-	//$scope.$on('$ionicView.enter', function(e) {
-	//});
+.controller('ListsCtrl', function($scope, $dataService) {
 	
-	$scope.itemsMenu = [{
-		title : 'Veículos', id : 1 }, {
-		title : 'Restaurantes', id : 2
-	}];
+	$scope.itemsMenu = {};
+	
+	$dataService.get("entity", 
+		function(data, responseCode) { //success
+	        $scope.itemsMenu = data;
+	    }, 
+	    function(data, responseCode) { //error
+	    	console.log("Failed to load data"); 
+	    }
+    );
 })
 
-.controller('ListsCtrl', function($scope) {
-
-	$scope.itemsMenu = [{
-		title : 'Veículos', id : 1 }, {
-		title : 'Restaurantes', id : 2
-	}];
+.controller('ListCtrl', function($scope, $stateParams, $dataService) {
+	
+	$scope.list = {};
+	
+	$dataService.get("entity/get/" + $stateParams.itemId, 
+		function(data, responseCode) { //success
+	        $scope.list = data;
+	    }, 
+	    function(data, responseCode) { //error
+	    	console.log("Failed to load data"); 
+	    }
+    );
 })
 
-.controller('ListCtrl', function($scope, $stateParams) {
+.controller('DetailsCtrl', function($scope, $stateParams, $dataService) {
 	
-	$scope.list = {
-		title: "Veículos",
-		data: [{
-			"title": "Ford",
-			"id": 1
-		}, {
-			"title": "Fiat",
-			"id": 2
-		}]
-	};
-
-})
-
-.controller('DetailsCtrl', function($scope, $stateParams) {
+	$scope.details = {};
 	
-	$scope.details = {
-		title: "Ford",
-		data: [{
-			"key": "Modelo",
-			"value": "Ka"
-		}, {
-			"key": "Ano",
-			"value": 2015
-		}]
-	};
-
+	$dataService.get("entity/details/" + $stateParams.itemId, 
+		function(data, responseCode) { //success
+	        $scope.details = data;
+	    }, 
+	    function(data, responseCode) { //error
+	    	console.log("Failed to load data"); 
+	    }
+    );
 });
