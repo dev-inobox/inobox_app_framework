@@ -1,4 +1,4 @@
-<ion-view view-title="{{list[0].entity}}">
+<ion-view view-title="{{list.fields[0].entity}}">
 	<ion-content>
 		<div class="list list-inset">
 			<label class="item item-input"> <i class="icon ion-search placeholder-icon"></i>
@@ -6,8 +6,10 @@
 			</label>
 		</div>
 		<ion-list>
-			<ion-item ng-repeat="item in list | filter: query" href="#/app/details/{{item.id}}">
-				{{item.title}}
+			<ion-item ng-repeat="item in list.data | filter: query">
+				<ion-item ng-repeat="i in item" href="#/app/details/{{item.id}}">
+					{{i}}
+				</ion-item>
 			</ion-item>
 		</ion-list>
 	</ion-content>
