@@ -54,7 +54,7 @@ angular.module('starter', ['ionic', 'app.controllers'])
 	})
 	
 	.state('app.details', {
-		url : '/details/:itemId',
+		url : '/list/:entityId/details/:itemId',
 		views : {
 			'menuContent' : {
 				templateUrl : 'templates/details.html',

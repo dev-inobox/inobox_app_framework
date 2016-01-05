@@ -7,8 +7,8 @@
 		</div>
 		<ion-list>
 			<ion-item ng-repeat="item in list.data | filter: query">
-				<ion-item ng-repeat="i in item" href="#/app/details/{{item.id}}">
-					{{i}}
+				<ion-item ng-repeat="i in list.fields | filter: filterListable" href="/#{{url}}/details/{{item.id}}">
+					{{i.ds_label}}: {{item[i.ds_nome_tecnico]}}
 				</ion-item>
 			</ion-item>
 		</ion-list>

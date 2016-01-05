@@ -2,8 +2,8 @@
 	<ion-content>
 		<ion-list>
 			<ion-item ng-repeat="detail in details.data">
-				<ion-item ng-repeat="(key, value) in detail" href="#/app/details/{{detail.id}}">
-					{{key}}: {{value}}
+				<ion-item ng-repeat="i in details.fields | filter: filterDetails">
+					{{i.ds_label}}: {{detail[i.ds_nome_tecnico]}} 
 				</ion-item>
 			</ion-item>
 		</ion-list>

@@ -16,7 +16,7 @@ angular.module('app.controllers', ['app.services'])
     );
 })
 
-.controller('ListCtrl', function($scope, $stateParams, $dataService) {
+.controller('ListCtrl', function($scope, $stateParams, $dataService, $location) {
 	
 	$scope.list = {};
 	
@@ -28,13 +28,19 @@ angular.module('app.controllers', ['app.services'])
 	    	console.log("Failed to load data"); 
 	    }
     );
+    
+    $scope.url = $location.url();
+    
+    $scope.filterListable = function(element) {
+		return element.ic_listavel == '1';
+	};
 })
 
 .controller('DetailsCtrl', function($scope, $stateParams, $dataService) {
 	
 	$scope.details = {};
 	
-	$dataService.get("entity/details/" + $stateParams.itemId, 
+	$dataService.get("entity/details/" + $stateParams.entityId + "/" + $stateParams.itemId, 
 		function(data, responseCode) { //success
 	        $scope.details = data;
 	    }, 
@@ -42,4 +48,8 @@ angular.module('app.controllers', ['app.services'])
 	    	console.log("Failed to load data"); 
 	    }
     );
+    
+    $scope.filterDetails = function(element) {
+		return element.ic_detalhes == '1';
+	};
 });
