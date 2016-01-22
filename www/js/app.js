@@ -61,6 +61,16 @@ angular.module('starter', ['ionic', 'app.controllers'])
 				controller 	: 'DetailsCtrl'
 			}
 		}
+	})
+	
+	.state('app.search', {
+		url : '/search/:entityId',
+		views : {
+			'menuContent' : {
+				templateUrl : 'templates/search.html',
+				controller 	: 'SearchCtrl'
+			}
+		}
 	});
 	
 	// if none of the above states are matched, use this as the fallback

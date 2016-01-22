@@ -1,0 +1,14 @@
+<ion-view view-title="{{fields[0].entity}}">
+    <ion-content>
+        <form ng-submit="searchItems(criteria)">
+            <div class="list list-inset" compile ng-bind-html="fields">
+                <input type="text" placeholder="Marca 1" ng-model="criteria.marca1" name="marca1"> 
+            </div>
+            <div class="padding">
+                <button type="submit" class="button button-block button-positive">
+                    Pesquisar
+                </button>
+            </div>
+        </form>
+    </ion-content>
+</ion-view>
