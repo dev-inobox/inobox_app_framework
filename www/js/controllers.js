@@ -12,6 +12,7 @@ var app = angular.module('app.controllers', ['app.services'])
         console.log("Failed to load data");
     });
 })
+
 .controller('ListCtrl', function($scope, $stateParams, $dataService, $location) {
 
     $scope.list = {};
@@ -28,6 +29,7 @@ var app = angular.module('app.controllers', ['app.services'])
         return element.ic_listavel == '1';
     };
 })
+
 .controller('DetailsCtrl', function($scope, $stateParams, $dataService) {
 
     $scope.details = {};
@@ -42,18 +44,24 @@ var app = angular.module('app.controllers', ['app.services'])
         return element.ic_detalhes == '1';
     };
 })
-.controller('SearchCtrl', function($scope, $stateParams, $dataService, $sce) {
 
-    var fields = '';
+.controller('SearchCtrl', function($scope, $stateParams, $dataService, $sce, $utils) {
     
     $scope.searchItems = function(criteria) {
-        console.log('criteria');
-        console.log(criteria);
-        console.log($scope.criteria);
+        var params = $utils.obj2QueryString(criteria);
+        
+        $dataService.post("entity/found/" + $stateParams.entityId, params, function(data, responseCode) {//success
+            console.log(data);
+            $scope.list = data;
+            
+        }, function(data, responseCode) {//error
+            console.log("Failed to load data");
+        });
     };
     
+    $scope.fields = [];
     $scope.criteria = {};
-
+    
     $dataService.get("entity/search/" + $stateParams.entityId, function(data, responseCode) {//success
         angular.forEach(data, function(value, key) {
             
@@ -61,7 +69,7 @@ var app = angular.module('app.controllers', ['app.services'])
             ngModel = 'ng-model="criteria.'+value.ds_nome_tecnico+'"';
             
             if (value.ds_tipo == 'texto simples') {
-                fields += '<label class="item item-input"> <input type="text" '+name+' '+ngModel+' placeholder="'+value.ds_label+'"> </label>';
+                field = '<label class="item item-input"> <input type="text" '+name+' '+ngModel+' placeholder="'+value.ds_label+'"> </label>';
             }
             
             if (value.ds_tipo == 'selecao unica') {
@@ -70,7 +78,7 @@ var app = angular.module('app.controllers', ['app.services'])
                 angular.forEach(opt, function (value, key) {
                     options += '<option value="'+value+'">'+value+'</option>';
                 });
-                fields += '<label class="item item-input item-select"> \
+                field = '<label class="item item-input item-select"> \
                                     <div class="input-label"> \
                                         '+value.ds_label+' \
                                     </div> \
@@ -84,30 +92,29 @@ var app = angular.module('app.controllers', ['app.services'])
                 angular.forEach(opt, function (value, key) {
                     options += '<option value="'+value+'">'+value+'</option>';
                 });
-                fields += '<label class="item item-input item-select"> \
+                field = '<label class="item item-input item-select"> \
                                     <div class="input-label"> \
                                         '+value.ds_label+' \
                                     </div> \
                                     <select multiple="true" '+name+' '+ngModel+' > '+ options +' </select> \
                                 </label>';
             }
-        });
-        
-        $scope.fields = $sce.trustAsHtml(fields);
+            
+            this.push($sce.trustAsHtml(field));
+        }, $scope.fields);
         
     }, function(data, responseCode) {//error
         console.log("Failed to load data");
     });
-}); 
+});
 
-app.directive('compile', function($compile, $timeout) {
-    return {
-        restrict : 'A',
-        link : function(scope, elem, attrs) {
-            $timeout(function() {
-
-                $compile(elem.contents())(scope);
+app.directive('compile',function($compile, $timeout){
+    return{
+        restrict:'A',
+        link: function(scope,elem,attrs){
+            $timeout(function(){                
+                $compile(elem.contents())(scope);    
             });
-        }
+        }        
     };
-}); 
+});

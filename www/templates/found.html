@@ -1,0 +1,16 @@
+<ion-view view-title="{{list.fields[0].entity}}">
+	<ion-content>
+		<div class="list list-inset">
+			<label class="item item-input"> <i class="icon ion-search placeholder-icon"></i>
+				<input type="text" ng-model="query" placeholder="Search">
+			</label>
+		</div>
+		<ion-list>
+			<ion-item ng-repeat="item in list.data | filter: query">
+				<ion-item ng-repeat="i in list.fields | filter: filterListable" href="/#{{url}}/details/{{item.id}}">
+					{{i.ds_label}}: {{item[i.ds_nome_tecnico]}}
+				</ion-item>
+			</ion-item>
+		</ion-list>
+	</ion-content>
+</ion-view>

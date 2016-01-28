@@ -1,9 +1,10 @@
-<ion-view view-title="{{fields[0].entity}}">
+<ion-view view-title="Buscar {{fields[0].entity}}">
     <ion-content>
-        <form ng-submit="searchItems(criteria)">
-            <div class="list list-inset" compile ng-bind-html="fields">
-                <input type="text" placeholder="Marca 1" ng-model="criteria.marca1" name="marca1"> 
+        <form ng-submit="searchItems(criteria)" novalidate>
+            <div class="list list-inset" ng-repeat="field in fields">
+                <div compile ng-bind-html="field"></div>
             </div>
+            
             <div class="padding">
                 <button type="submit" class="button button-block button-positive">
                     Pesquisar
