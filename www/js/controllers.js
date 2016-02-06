@@ -47,12 +47,27 @@ var app = angular.module('app.controllers', ['app.services'])
 
 .controller('SearchCtrl', function($scope, $stateParams, $dataService, $sce, $utils) {
     
+    $scope.list = {};
+    $scope.formShow  = true;
+    $scope.foundShow = false;
+    
+    $scope.callSearch = function() {
+        $scope.list = {};
+        
+        $scope.formShow  = true;
+        $scope.foundShow = false;
+        $scope.$apply();
+    };
+    
     $scope.searchItems = function(criteria) {
         var params = $utils.obj2QueryString(criteria);
         
         $dataService.post("entity/found/" + $stateParams.entityId, params, function(data, responseCode) {//success
             console.log(data);
             $scope.list = data;
+            $scope.foundShow = true;
+            $scope.formShow  = false;
+            $scope.$apply();
             
         }, function(data, responseCode) {//error
             console.log("Failed to load data");

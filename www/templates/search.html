@@ -1,6 +1,6 @@
 <ion-view view-title="Buscar {{fields[0].entity}}">
     <ion-content>
-        <form ng-submit="searchItems(criteria)" novalidate>
+        <form ng-submit="searchItems(criteria)" ng-show="formShow" novalidate>
             <div class="list list-inset" ng-repeat="field in fields">
                 <div compile ng-bind-html="field"></div>
             </div>
@@ -11,5 +11,18 @@
                 </button>
             </div>
         </form>
+        
+        <ion-list  ng-show="foundShow">
+            <div class="padding">
+                <button type="button" ng-click="callSearch()" class="button button-block button-positive">
+                    Voltar a busca
+                </button>
+            </div>
+            <ion-item ng-repeat="item in list.data | filter: query">
+                <ion-item ng-repeat="i in list.fields | filter: filterListable" href="/#{{url}}/details/{{item.id}}">
+                    {{i.ds_label}}: {{item[i.ds_nome_tecnico]}}
+                </ion-item>
+            </ion-item>
+        </ion-list>
     </ion-content>
 </ion-view>
