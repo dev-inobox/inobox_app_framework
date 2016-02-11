@@ -87,7 +87,7 @@ var app = angular.module('app.controllers', ['app.services'])
             if (value.ds_tipo.match(/texto/g)) {
                 field = '<label class="item item-input"> \
                             <span class="input-label">'+value.ds_label+'</span> \
-                            <input type="text" '+name+' '+ngModel+' placeholder="'+value.ds_label+'"> </label>';
+                            <input type="text" '+name+' '+ngModel+'> </label>';
             }
             
             if (value.ds_tipo == 'data') {

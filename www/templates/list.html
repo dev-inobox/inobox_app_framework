@@ -1,8 +1,10 @@
 <ion-view view-title="{{list.fields[0].entity}}">
 	<ion-content>
 		<div class="list list-inset">
-			<label class="item item-input"> <i class="icon ion-search placeholder-icon"></i>
+			<label class="item item-input"> 
+			    <i class="icon ion-search placeholder-icon"></i>
 				<input type="text" ng-model="query" placeholder="Search">
+				<a title="Busca avançada" href="/#/app/search/{{list.fields[0].modelo_entidade}}" class="button button-icon icon ion-funnel"></a>
 			</label>
 		</div>
 		<ion-list>
