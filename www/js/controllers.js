@@ -80,11 +80,26 @@ var app = angular.module('app.controllers', ['app.services'])
     $dataService.get("entity/search/" + $stateParams.entityId, function(data, responseCode) {//success
         angular.forEach(data, function(value, key) {
             
+            field   = '';
             name    = 'name="'+value.ds_nome_tecnico+'"';
             ngModel = 'ng-model="criteria.'+value.ds_nome_tecnico+'"';
             
-            if (value.ds_tipo == 'texto simples') {
-                field = '<label class="item item-input"> <input type="text" '+name+' '+ngModel+' placeholder="'+value.ds_label+'"> </label>';
+            if (value.ds_tipo.match(/texto/g)) {
+                field = '<label class="item item-input"> \
+                            <span class="input-label">'+value.ds_label+'</span> \
+                            <input type="text" '+name+' '+ngModel+' placeholder="'+value.ds_label+'"> </label>';
+            }
+            
+            if (value.ds_tipo == 'data') {
+                field = '<label class="item item-input"> \
+                            <span class="input-label">'+value.ds_label+'</span> \
+                            <input type="date" '+name+' '+ngModel+'> </label>';
+            }
+            
+            if (value.ds_tipo.match(/decimal|inteiro|moeda/g)) {
+                field = '<label class="item item-input"> \
+                            <span class="input-label">'+value.ds_label+'</span> \
+                            <input type="number" '+name+' '+ngModel+'> </label>';
             }
             
             if (value.ds_tipo == 'selecao unica') {
@@ -106,6 +121,7 @@ var app = angular.module('app.controllers', ['app.services'])
                 options = '';
                 angular.forEach(opt, function (value, key) {
                     options += '<option value="'+value+'">'+value+'</option>';
+                    // options += '<ion-option>'+value+'</ion-option>';
                 });
                 field = '<label class="item item-input item-select"> \
                                     <div class="input-label"> \
@@ -113,6 +129,11 @@ var app = angular.module('app.controllers', ['app.services'])
                                     </div> \
                                     <select multiple="true" '+name+' '+ngModel+' > '+ options +' </select> \
                                 </label>';
+                
+                /* field = '<ion-item> \
+                            <ion-label>'+value.ds_label+'</ion-label> \
+                            <ion-select [(ngModel)]="'+value.ds_nome_tecnico+'" multiple="true"> '+ options +' </ion-select> \
+                         </ion-item>'; */
             }
             
             this.push($sce.trustAsHtml(field));
